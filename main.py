@@ -5,12 +5,11 @@ import os
 from datetime import datetime
 
 from core import DotaAuto
+from config import ScreenConfig
 
 # =========================
 # НАСТРОЙКИ
 # =========================
-DEFAULT_SCREEN_WIDTH = 1600
-DEFAULT_SCREEN_HEIGHT = 900
 DISPLAY_WIDTH = 1200
 DISPLAY_HEIGHT = 675
 
@@ -20,8 +19,8 @@ POINT_COLOR_2 = "blue"
 RECT_COLOR = "green"
 RECT_WIDTH = 2
 
-SCALE_X = DISPLAY_WIDTH / DEFAULT_SCREEN_WIDTH
-SCALE_Y = DISPLAY_HEIGHT / DEFAULT_SCREEN_HEIGHT
+SCALE_X = DISPLAY_WIDTH / ScreenConfig.WIDTH
+SCALE_Y = DISPLAY_HEIGHT / ScreenConfig.HEIGHT
 
 BG_COLOR = "#2b2b2b"
 PANEL_COLOR = "#1f1f1f"
@@ -408,8 +407,8 @@ class FindPointsApp:
 
         left = max(0, orig_x - ZOOM_RADIUS)
         top = max(0, orig_y - ZOOM_RADIUS)
-        right = min(DEFAULT_SCREEN_WIDTH, orig_x + ZOOM_RADIUS)
-        bottom = min(DEFAULT_SCREEN_HEIGHT, orig_y + ZOOM_RADIUS)
+        right = min(ScreenConfig.WIDTH, orig_x + ZOOM_RADIUS)
+        bottom = min(ScreenConfig.HEIGHT, orig_y + ZOOM_RADIUS)
 
         region = self.original_screenshot.crop((left, top, right, bottom))
         region = region.resize((ZOOM_RADIUS*2*ZOOM_SCALE, ZOOM_RADIUS*2*ZOOM_SCALE))
@@ -477,7 +476,7 @@ def main():
 
     win = DotaAuto.window._get_dota_window()
     screenshot = ImageGrab.grab(
-        bbox=(win.left, win.top, win.left + DEFAULT_SCREEN_WIDTH, win.top + DEFAULT_SCREEN_HEIGHT)
+        bbox=(win.left, win.top, win.left + ScreenConfig.WIDTH, win.top + ScreenConfig.HEIGHT)
     )
 
     root = tk.Tk()
